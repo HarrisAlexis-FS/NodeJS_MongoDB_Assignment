@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 router.get("/", async (req,res,next)=>{
 
    const result = await Hero.find();
-   res.json({'heroes': result})
+   res.json({message:"All Heroes", "heroes": result})
 
 });
 
@@ -19,7 +19,7 @@ router.get("/:heroId", async (req,res,next)=>{
 
     const heroId = req.params._id;
     const hero = await Hero.findOne(heroId)
-    res.json({hero})
+    res.json({message:"Hero Found", hero})
  
  });
 
@@ -28,7 +28,7 @@ router.get("/:heroId", async (req,res,next)=>{
         router.delete("/:heroId", async (req,res,next)=>{
             const heroId = req.params._id;
             const result = await Hero.deleteOne(heroId);
-            res.json({deletedCount: result.deletedCount});
+            res.json({message:"Hero Deleted",deletedCount: result.deletedCount});
         });
   
 
@@ -36,7 +36,7 @@ router.get("/:heroId", async (req,res,next)=>{
 router.patch("/:heroId", async (req,res,next)=>{
         const heroId = req.params._id;
         const hero = await Hero.findOneAndUpdate({heroId}, req.body, {new: true});
-        res.json({hero})
+        res.json({message: "Hero Updated", hero})
    });
 
 
